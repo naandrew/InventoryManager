@@ -1,0 +1,17 @@
+# Java
+*.class
+
+# Maven
+/target/
+/.idea/
+/*.iml
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
