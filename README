@@ -1,0 +1,54 @@
+#InventoryManager
+A Java-based Inventory Management application that allows users to manage products, suppliers, and generate reports. It uses MySQL as the backend database and supports operations such as adding, updating, deleting, and viewing products and suppliers.
+
+#Features
+  -Add, update, delete, and view products and suppliers
+  -Maintain product-supplier relationships with foreign key constraints
+  -Generate inventory reports by supplier
+  -Input validation for user interaction
+  -Console-based user interface with menu-driven options
+
+#Technologies Used
+  -Java 17+
+  -MySQL 8+
+  -JDBC for database connection 
+  -Maven for project build and dependency management
+  -VS Code
+
+#File Structure
+
+InventoryManager
+  pom.xml    #Maven configuration that manages dependencies and build settings
+  src
+     main
+         java
+            com
+                inventory
+                    DatabaseManager.java #Performs all database connections and SQL Operations
+                    ProductManager.java    #Manages Product specific logic and operations
+                    SupplierManager.java   #Manages Supplier specific logic and operations
+                    OrderManager.java      #Manages Order specific logic and operations
+                    ReportGenerator.java   #Generates inventory reports and handles formatting/outputs
+                    Main.java              #Entry point of the application, handles user interaction and program flow
+                    Product.java           #Represents Product entity with attributes and methods
+                    Supplier.java          #Represents Supplier entity with attributes and methods
+                    Order.java             #Represents Order entity with attributes and methods
+
+#Usage
+  -Follow the console menu prompts to manage products and suppliers
+  -Enter valid inputs as requested 
+  -Use update functions to modify existing entries
+  -Generate inventory reports and filter them based on supplier or category. 
+
+#Skills Demonstrated
+  -Java programming with OOP principles 
+  -JDBC for database interaction
+  -SQL Database design with foreign key constraints 
+  -Input validation and exception handling
+  -Command-Line interface design
+
+#License
+This project is for educational purposes and is open for extension and modification.
+
+#Author
+Created by Andrew Nazarov
