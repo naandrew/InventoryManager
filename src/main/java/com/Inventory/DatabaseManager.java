@@ -126,8 +126,7 @@ import java.util.Set;
 
 
     private Product ResultSetProduct(ResultSet rs) throws SQLException{
-        return new Product(rs.getInt("ProductID"), rs.getString("ProductName"), rs.getString("Category"), 
-        rs.getDouble("PricePerUnit"), rs.getInt("Quantity"),rs.getInt("SupplierID"), rs.getInt("LowStockThreshold"));
+        return new Product(rs.getInt("ProductID"), rs.getString("ProductName"), rs.getString("Category"), rs.getDouble("PricePerUnit"), rs.getInt("Quantity"),rs.getInt("LowStockThreshold"), rs.getInt("SupplierID"));
     }
 
     public Product getProductByID(int prodID){
@@ -156,13 +155,13 @@ import java.util.Set;
             ps.setDouble(3,prod.getPricePerUnit());
             ps.setString(4,prod.getCategory());
             if(!supplierExists(prod.getSuppID())){
-                System.out.println(prod.getSuppID());
                 System.out.println("Supplier does not exist");
                 return false;
             }
             ps.setInt(5,prod.getSuppID());
-            ps.setInt(6,prod.getID());
-            ps.setInt(7,prod.getLowThreshold());
+            
+            ps.setInt(6,prod.getLowThreshold());
+            ps.setInt(7,prod.getID());
 
             int rowsAffected = ps.executeUpdate();
             return rowsAffected == 1;
@@ -193,6 +192,7 @@ import java.util.Set;
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Product p = ResultSetProduct(rs);
+               
                 productList.add(p);
             }
         }catch(SQLException e){
@@ -258,6 +258,7 @@ import java.util.Set;
     public boolean supplierExists(int suppID){
         String sql = "SELECT COUNT(*) FROM Supplier WHERE SupplierID = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1,suppID);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 int count = rs.getInt(1);
@@ -441,7 +442,7 @@ import java.util.Set;
         }
         return orderList;
     }
-
+    
     public List<Order> getOrdersBySupplier(int suppID){
         List<Order> orderList = new ArrayList<>();
         String sql = "SELECT * FROM Orders WHERE SupplierID = ?";
@@ -456,7 +457,7 @@ import java.util.Set;
         }
         return orderList;
     }
-
+    //Updates Delivery Date
     public boolean updateDeliveryDate(int ordID, Date newDate){
         String sql = "UPDATE Orders SET DeliveryDate = ? WHERE OrderID = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -470,7 +471,7 @@ import java.util.Set;
         }
         return false;
     }
-
+    //Updates Delivert Status
     public boolean updateDeliveryStatus(int ordID, String status){
         String sql = "UPDATE Orders SET Status = ? WHERE OrderID = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)){
@@ -498,6 +499,7 @@ import java.util.Set;
         return getAllOrdersUniversal("Delivered");
     }
 
+    //Collects all orders based on request
     public List<Order> getAllOrdersUniversal(String status){
         List<Order> orderList = new ArrayList<>();
         String sql = "SELECT * FROM Orders";
@@ -520,4 +522,5 @@ import java.util.Set;
 }
 
     
+
 
