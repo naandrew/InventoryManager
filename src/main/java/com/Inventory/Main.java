@@ -30,7 +30,7 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        DatabaseManager dbManager = new DatabaseManager("root","$Dcsd201052");
+        DatabaseManager dbManager = new DatabaseManager("root","password");
          dbManager.connect();
         
         ProductManager prodManager = new ProductManager(dbManager);
